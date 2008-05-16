@@ -1,14 +1,14 @@
-# $Id: libdc1394.spec,v 1.2 2008/02/09 00:09:13 timn Exp $
+# $Id: libdc1394.spec,v 1.3 2008/05/16 20:04:59 timn Exp $
 
 #define svn_snapshot .svn459  
 #define real_version 2.0.0-rc8%{svn_snapshot}
-%define real_version 2.0.1
+%define real_version 2.0.2
 %define svn_build %{?svn_snapshot:1}%{!?svn_snapshot:0}
 
 Summary: 1394-based digital camera control library
 Name: libdc1394
-Version: 2.0.1
-Release: 4%{?svn_snapshot}%{?dist}
+Version: 2.0.2
+Release: 1%{?svn_snapshot}%{?dist}
 License: LGPLv2+
 Group: System Environment/Libraries
 URL: http://sourceforge.net/projects/libdc1394/
@@ -76,6 +76,7 @@ make doc
 make install DESTDIR=%{buildroot} INSTALL="%{__install} -p"
 mkdir -p %{buildroot}%{_docdir}/%{name}-docs-%{version}
 %{__install} -p -m 0644 doc/html/* %{buildroot}%{_docdir}/%{name}-docs-%{version}
+%{!?_without_juju:rm -f %{buildroot}/%{_mandir}/man1/dc1394_vloopback.1}
 
 %post -p /sbin/ldconfig
 
@@ -105,10 +106,13 @@ mkdir -p %{buildroot}%{_docdir}/%{name}-docs-%{version}
 %defattr(-, root, root, 0755)
 %{_bindir}/dc1394_reset_bus
 %{?_without_juju:%{_bindir}/dc1394_vloopback}
+%{_mandir}/man1/dc1394_reset_bus.1.gz
+%{?_without_juju:%{_mandir}/man1/dc1394_vloopback.1.gz}
+
 
 %changelog
-* Sat Feb 09 2008 Tim Niemueller <tim@niemueller.de> - 2.0.1-4
-- Rebuild with GCC 4.3 for rawhide (F9)
+* Mon May 12 2008 Tim Niemueller <tim@niemueller.de> - 2.0.2-1
+- Update to latest stable release 2.0.2
 
 * Sat Jan 19 2008 Tim Niemueller <tim@niemueller.de> - 2.0.1-3
 - Made autotools calls optional, only called if svn_snapshot is defined
