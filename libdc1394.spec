@@ -1,18 +1,18 @@
-# $Id: libdc1394.spec,v 1.4 2009/02/25 14:20:21 jkeating Exp $
+# $Id: libdc1394.spec,v 1.5 2009/03/17 14:47:28 timn Exp $
 
 #define svn_snapshot .svn459  
 #define real_version 2.0.0-rc8%{svn_snapshot}
-%define real_version 2.0.2
+#%define real_version 2.1.0
 %define svn_build %{?svn_snapshot:1}%{!?svn_snapshot:0}
 
 Summary: 1394-based digital camera control library
 Name: libdc1394
-Version: 2.0.2
-Release: 2%{?svn_snapshot}%{?dist}
+Version: 2.1.0
+Release: 1%{?svn_snapshot}%{?dist}
 License: LGPLv2+
 Group: System Environment/Libraries
 URL: http://sourceforge.net/projects/libdc1394/
-Source: http://dl.sf.net/libdc1394/libdc1394-%{real_version}.tar.gz
+Source: http://dl.sf.net/libdc1394/libdc1394-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires: kernel-headers
@@ -55,7 +55,7 @@ This package contains tools that are useful when working and
 developing with %{name}.
 
 %prep
-%setup -q -n libdc1394-%{real_version}
+%setup -q -n libdc1394-%{version}
 
 %build
 %if %{svn_build}
@@ -105,12 +105,15 @@ mkdir -p %{buildroot}%{_docdir}/%{name}-docs-%{version}
 %files tools
 %defattr(-, root, root, 0755)
 %{_bindir}/dc1394_reset_bus
-%{?_without_juju:%{_bindir}/dc1394_vloopback}
+%{_bindir}/dc1394_vloopback
 %{_mandir}/man1/dc1394_reset_bus.1.gz
 %{?_without_juju:%{_mandir}/man1/dc1394_vloopback.1.gz}
 
 
 %changelog
+* Tue Mar 17 2009 Tim Niemueller <tim@niemueller.de> - 2.1.0-1
+- Update to latest stable release 2.1.0
+
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
