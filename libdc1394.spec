@@ -1,4 +1,4 @@
-# $Id: libdc1394.spec,v 1.5 2009/03/17 14:47:28 timn Exp $
+# $Id: libdc1394.spec,v 1.6 2009/06/11 22:41:38 timn Exp $
 
 #define svn_snapshot .svn459  
 #define real_version 2.0.0-rc8%{svn_snapshot}
@@ -7,7 +7,7 @@
 
 Summary: 1394-based digital camera control library
 Name: libdc1394
-Version: 2.1.0
+Version: 2.1.2
 Release: 1%{?svn_snapshot}%{?dist}
 License: LGPLv2+
 Group: System Environment/Libraries
@@ -16,8 +16,9 @@ Source: http://dl.sf.net/libdc1394/libdc1394-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires: kernel-headers
-BuildRequires: libraw1394-devel
+BuildRequires: libraw1394-devel libusb1-devel
 BuildRequires: doxygen
+BuildRequires: libX11-devel libXv-devel
 %if %{svn_build}
 BuildRequires: libtool
 %endif
@@ -65,7 +66,7 @@ autoheader
 autoconf
 automake --add-missing
 %endif
-%configure --disable-static --enable-doxygen-html --enable-doxygen-dot %{!?_without_juju:--with-juju-dir=/usr/include}
+%configure --disable-static --enable-doxygen-html --enable-doxygen-dot
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 make %{?_smp_mflags}
@@ -76,7 +77,13 @@ make doc
 make install DESTDIR=%{buildroot} INSTALL="%{__install} -p"
 mkdir -p %{buildroot}%{_docdir}/%{name}-docs-%{version}
 %{__install} -p -m 0644 doc/html/* %{buildroot}%{_docdir}/%{name}-docs-%{version}
-%{!?_without_juju:rm -f %{buildroot}/%{_mandir}/man1/dc1394_vloopback.1}
+for p in grab_color_image grab_gray_image grab_partial_image ladybug grab_partial_pvn; do
+	%{__install} -p -m 0644 examples/$p %{buildroot}%{_bindir}/dc1394_$p
+done
+%{__install} -p -m 0644 examples/dc1394_multiview %{buildroot}%{_bindir}/dc1394_multiview
+for f in grab_color_image grab_gray_image grab_partial_image; do
+	mv %{buildroot}%{_mandir}/man1/$f.1 %{buildroot}%{_mandir}/man1/dc1394_$f.1
+done
 
 %post -p /sbin/ldconfig
 
@@ -104,13 +111,13 @@ mkdir -p %{buildroot}%{_docdir}/%{name}-docs-%{version}
 
 %files tools
 %defattr(-, root, root, 0755)
-%{_bindir}/dc1394_reset_bus
-%{_bindir}/dc1394_vloopback
-%{_mandir}/man1/dc1394_reset_bus.1.gz
-%{?_without_juju:%{_mandir}/man1/dc1394_vloopback.1.gz}
-
+%{_bindir}/dc1394_*
+%{_mandir}/man1/dc1394_*.1.gz
 
 %changelog
+* Thu Jun 11 2009 Tim Niemueller <tim@niemueller.de> - 2.1.2-1
+- Update to latest stable release 2.1.2
+
 * Tue Mar 17 2009 Tim Niemueller <tim@niemueller.de> - 2.1.0-1
 - Update to latest stable release 2.1.0
 
