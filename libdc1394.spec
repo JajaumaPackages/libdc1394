@@ -8,7 +8,7 @@
 Summary: 1394-based digital camera control library
 Name: libdc1394
 Version: 2.1.4
-Release: 1%{?svn_snapshot}%{?dist}
+Release: 2%{?svn_snapshot}%{?dist}
 License: LGPLv2+
 Group: System Environment/Libraries
 URL: http://sourceforge.net/projects/libdc1394/
@@ -79,7 +79,7 @@ make install DESTDIR=%{buildroot} INSTALL="%{__install} -p"
 mkdir -p %{buildroot}%{_docdir}/%{name}-docs-%{version}
 %{__install} -p -m 0644 doc/html/* %{buildroot}%{_docdir}/%{name}-docs-%{version}
 for p in grab_color_image grab_gray_image grab_partial_image ladybug grab_partial_pvn; do
-	%{__install} -p -m 0644 examples/$p %{buildroot}%{_bindir}/dc1394_$p
+	%{__install} -p -m 0644 examples/.libs/$p %{buildroot}%{_bindir}/dc1394_$p
 done
 %{__install} -p -m 0644 examples/dc1394_multiview %{buildroot}%{_bindir}/dc1394_multiview
 for f in grab_color_image grab_gray_image grab_partial_image; do
@@ -116,6 +116,9 @@ done
 %{_mandir}/man1/dc1394_*.1.gz
 
 %changelog
+* Wed Jan 04 2012 Tim Niemueller <tim@niemueller.de> - 2.1.4-2
+- Fix improperly installed tools (bz #593873)
+
 * Wed Jan 04 2012 Tim Niemueller <tim@niemueller.de> - 2.1.4-1
 - Update to latest stable release 2.1.4
 
