@@ -8,7 +8,7 @@
 Summary: 1394-based digital camera control library
 Name: libdc1394
 Version: 2.2.0
-Release: 1%{?svn_snapshot}%{?dist}
+Release: 2%{?svn_snapshot}%{?dist}
 License: LGPLv2+
 Group: System Environment/Libraries
 URL: http://sourceforge.net/projects/libdc1394/
@@ -50,7 +50,7 @@ This package contains the development documentation for %{name}.
 %package tools
 Summary: Tools for use with %{name}
 Group: Applications/System
-Requires: %{name} = %{version}
+Requires: %{name} = %{version}-%{release}
 
 %description tools
 This package contains tools that are useful when working and
@@ -79,7 +79,7 @@ make install DESTDIR=%{buildroot} INSTALL="%{__install} -p"
 mkdir -p %{buildroot}%{_docdir}/%{name}-docs-%{version}
 %{__install} -p -m 0644 doc/html/* %{buildroot}%{_docdir}/%{name}-docs-%{version}
 for p in grab_color_image grab_gray_image grab_partial_image ladybug grab_partial_pvn; do
-	%{__install} -p -m 0644 examples/.libs/$p %{buildroot}%{_bindir}/dc1394_$p
+	%{__install} -p -m 0644 -s examples/.libs/$p %{buildroot}%{_bindir}/dc1394_$p
 done
 %{__install} -p -m 0644 examples/dc1394_multiview %{buildroot}%{_bindir}/dc1394_multiview
 for f in grab_color_image grab_gray_image grab_partial_image; do
@@ -116,6 +116,10 @@ done
 %{_mandir}/man1/dc1394_*.1.gz
 
 %changelog
+* Tue Jan 29 2013 Jay Fenlason <fenlason@redhat.com> - 2.2.0-2
+- Fix two minor issues detected by rpmdiff: installed binaries not stripped
+  and -tools depended on version not version-release
+
 * Tue Dec 11 2012 Jay Fenlason <fenlason@redhat.com> - 2.2.0-1
 - New upstream version
 
