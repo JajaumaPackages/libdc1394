@@ -8,7 +8,7 @@
 Summary: 1394-based digital camera control library
 Name: libdc1394
 Version: 2.2.0
-Release: 3%{?svn_snapshot}%{?dist}
+Release: 4%{?svn_snapshot}%{?dist}
 License: LGPLv2+
 Group: System Environment/Libraries
 URL: http://sourceforge.net/projects/libdc1394/
@@ -76,8 +76,6 @@ make doc
 %install
 %{__rm} -rf %{buildroot}
 make install DESTDIR=%{buildroot} INSTALL="%{__install} -p"
-mkdir -p %{buildroot}%{_docdir}/%{name}-docs-%{version}
-%{__install} -p -m 0644 doc/html/* %{buildroot}%{_docdir}/%{name}-docs-%{version}
 for p in grab_color_image grab_gray_image grab_partial_image ladybug grab_partial_pvn; do
 	%{__install} -p -m 0644 -s examples/.libs/$p %{buildroot}%{_bindir}/dc1394_$p
 done
@@ -108,7 +106,7 @@ done
 
 %files docs
 %defattr(-, root, root, 0755)
-%{_docdir}/%{name}-docs-%{version}
+%doc doc/html/*
 
 %files tools
 %defattr(-, root, root, 0755)
@@ -116,6 +114,9 @@ done
 %{_mandir}/man1/dc1394_*.1.gz
 
 %changelog
+* Wed Aug  7 2013 Ville Skyttä <ville.skytta@iki.fi> - 2.2.0-4
+- Install docs using %%doc (#993839).
+
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
