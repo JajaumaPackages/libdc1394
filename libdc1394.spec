@@ -1,14 +1,12 @@
-# $Id: libdc1394.spec,v 1.8 2009/09/10 13:31:44 karsten Exp $
 
 #define svn_snapshot .svn459  
-#define real_version 2.0.0-rc8%{svn_snapshot}
-#%define real_version 2.1.0
+#define real_version 2.1.0
 %define svn_build %{?svn_snapshot:1}%{!?svn_snapshot:0}
 
 Summary: 1394-based digital camera control library
 Name: libdc1394
-Version: 2.2.0
-Release: 4%{?svn_snapshot}%{?dist}
+Version: 2.2.2
+Release: 1%{?svn_snapshot}%{?dist}
 License: LGPLv2+
 Group: System Environment/Libraries
 URL: http://sourceforge.net/projects/libdc1394/
@@ -114,6 +112,9 @@ done
 %{_mandir}/man1/dc1394_*.1.gz
 
 %changelog
+* Thu Mar 13 2014 Tim Niemueller <tim@niemueller.de> - 2.2.2-1
+- Upgrade to latest stable release 2.2.2
+
 * Wed Aug  7 2013 Ville Skyttä <ville.skytta@iki.fi> - 2.2.0-4
 - Install docs using %%doc (#993839).
 
@@ -176,7 +177,7 @@ done
 * Mon Jan 07 2008 Tim Niemueller <tim@niemueller.de> - 2.0.0-1
 - Update to 2.0.0
 
-* Thu Dec 16 2007 Tim Niemueller <tim@niemueller.de> - 2.0.0-rc9
+* Sun Dec 16 2007 Tim Niemueller <tim@niemueller.de> - 2.0.0-rc9
 - Update to 2.0.0-rc9
 
 * Wed Nov 28 2007 Tim Niemueller <tim@niemueller.de> - 2.0.0-rc7.3.svn459
