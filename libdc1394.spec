@@ -6,7 +6,7 @@
 Summary: 1394-based digital camera control library
 Name: libdc1394
 Version: 2.2.2
-Release: 1%{?svn_snapshot}%{?dist}
+Release: 2%{?svn_snapshot}%{?dist}
 License: LGPLv2+
 Group: System Environment/Libraries
 URL: http://sourceforge.net/projects/libdc1394/
@@ -112,6 +112,9 @@ done
 %{_mandir}/man1/dc1394_*.1.gz
 
 %changelog
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Thu Mar 13 2014 Tim Niemueller <tim@niemueller.de> - 2.2.2-1
 - Upgrade to latest stable release 2.2.2
 
