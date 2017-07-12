@@ -17,7 +17,7 @@ ExcludeArch: s390 s390x
 BuildRequires: kernel-headers
 BuildRequires: libraw1394-devel libusb1-devel
 BuildRequires: doxygen
-BuildRequires: perl
+BuildRequires: perl-interpreter
 BuildRequires: libX11-devel libXv-devel
 %if %{svn_build}
 BuildRequires: libtool
