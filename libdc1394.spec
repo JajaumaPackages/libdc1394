@@ -5,8 +5,8 @@
 
 Summary: 1394-based digital camera control library
 Name: libdc1394
-Version: 2.2.2
-Release: 9%{?svn_snapshot}%{?dist}
+Version: 2.2.5
+Release: 1%{?svn_snapshot}%{?dist}
 License: LGPLv2+
 Group: System Environment/Libraries
 URL: http://sourceforge.net/projects/libdc1394/
@@ -17,7 +17,7 @@ ExcludeArch: s390 s390x
 BuildRequires: kernel-headers
 BuildRequires: libraw1394-devel libusb1-devel
 BuildRequires: doxygen
-BuildRequires: perl-interpreter
+BuildRequires: perl
 BuildRequires: libX11-devel libXv-devel
 %if %{svn_build}
 BuildRequires: libtool
@@ -113,6 +113,9 @@ done
 %{_mandir}/man1/dc1394_*.1.gz
 
 %changelog
+* Wed Sep 06 2017 Jajauma's Packages <jajauma@yandex.ru> - 2.2.5-1
+- Update to latest upstream release
+
 * Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
